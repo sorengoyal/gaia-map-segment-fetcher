@@ -1,0 +1,53 @@
+{
+  "type": "AndFilter",
+  "config": [
+    {
+      "type":"GeometryFilter",
+      "field_name":"geometry",
+      "config":{
+        "type":"Polygon",
+        "coordinates":[
+          [
+            [ -5.788282155990601, 19.168407103123812],
+            [-5.785256624221801, 19.168407103123812],
+            [-5.785256624221801, 19.1703325524945],
+            [-5.788282155990601, 19.1703325524945],
+            [-5.788282155990601,19.168407103123812]
+          ]
+        ]
+      }
+    },
+    {
+      "type":"AndFilter",
+      "config":[{
+        "type": "RangeFilter",
+        "field_name": "cloud_cover",
+        "config": {
+          "gte": 0,
+          "lte": 0.2
+        }
+      }]
+    },
+    {
+      "type":"RangeFilter",
+      "field_name":"sun_elevation",
+      "config":{
+        "gte":0,
+        "lte":90
+      }
+    },
+    {
+      "type":"AndFilter",
+      "config":[
+        {
+          "type":"DateRangeFilter",
+          "field_name":"acquired",
+          "config":{
+            "gte":"2018-01-14T21:58:20.902Z",
+            "lte":"2018-04-14T20:58:20.902Z"
+          }
+        }
+      ]
+    }
+  ]
+}
