@@ -3,6 +3,7 @@ import unittest
 from planet.api import PlanetApi
 
 class TestApi(unittest.TestCase):
+  config = json.load(open('config.json'))
   search_request = {
     "interval": "day",
     "item_types": ['REOrthoTile'],  # ["PSOrthoTile"],
@@ -10,17 +11,17 @@ class TestApi(unittest.TestCase):
       "type": "AndFilter",
       "config": [
         {
-          "type":"GeometryFilter",
-          "field_name":"geometry",
-          "config":{
-            "type":"Polygon",
-            "coordinates":[
+          "type": "GeometryFilter",
+          "field_name": "geometry",
+          "config": {
+            "type": "Polygon",
+            "coordinates": [
               [
-                [-122.46171355247498,37.80017965728568],
-                [-122.45639204978943,37.80017965728568],
-                [-122.45639204978943,37.803723135087566],
-                [-122.46171355247498,37.803723135087566],
-                [-122.46171355247498,37.80017965728568]
+                [-122.46171355247498, 37.80017965728568],
+                [-122.45639204978943, 37.80017965728568],
+                [-122.45639204978943, 37.803723135087566],
+                [-122.46171355247498, 37.803723135087566],
+                [-122.46171355247498, 37.80017965728568]
 
               ]
             ]
@@ -40,7 +41,6 @@ class TestApi(unittest.TestCase):
   }
   assets_link = 'https://api.planet.com/data/v1/item-types/REOrthoTile/items/20180402_190716_1056516_RapidEye-4/assets/'
   analytic_asset_link = 'https://api.planet.com/data/v1/assets/eyJpIjogIjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCAiYyI6ICJSRU9ydGhvVGlsZSIsICJ0IjogImFuYWx5dGljIiwgImN0IjogIml0ZW0tdHlwZSJ9'
-  config = json.load(open('../config.json'))
 
   def test_postStatsRequest(self):
     api = PlanetApi(self.config["PLANET_API_KEY"])
