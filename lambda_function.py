@@ -1,5 +1,6 @@
 import json
 from planet.tasks import getMapSegment
+import
 '''
 event = {
 "traceid": "",
@@ -59,6 +60,6 @@ event = {
 '''
 def lambda_handler(event, context):
   filter = event["filter"]
-  print("Received event: " + json.dumps(event, indent=2))
+  print("Received event:\n" + json.dumps(event, indent=2))
   getMapSegment(filter)
   #raise Exception('Something went wrong')

@@ -1,3 +1,4 @@
+import json
 import unittest
 from planet.api import PlanetApi
 
@@ -39,8 +40,10 @@ class TestApi(unittest.TestCase):
   }
   assets_link = 'https://api.planet.com/data/v1/item-types/REOrthoTile/items/20180402_190716_1056516_RapidEye-4/assets/'
   analytic_asset_link = 'https://api.planet.com/data/v1/assets/eyJpIjogIjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCAiYyI6ICJSRU9ydGhvVGlsZSIsICJ0IjogImFuYWx5dGljIiwgImN0IjogIml0ZW0tdHlwZSJ9'
+  config = json.load(open('../config.json'))
+
   def test_postStatsRequest(self):
-    api = PlanetApi('3d42933f4c284a3b8dd2c5200e97da00')
+    api = PlanetApi(self.config["PLANET_API_KEY"])
     res = api.postStatsRequests(self.search_request)
     #Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -52,7 +55,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(r['buckets'][0]['start_time'])
 
   def test_postSearchRequest(self):
-    api = PlanetApi('3d42933f4c284a3b8dd2c5200e97da00')
+    api = PlanetApi(self.config["PLANET_API_KEY"])
     res = api.postSearchRequest(self.search_request)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -102,7 +105,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(r["features"][0]["type"])
 
   def test_getAllAssets(self):
-    api = PlanetApi('3d42933f4c284a3b8dd2c5200e97da00')
+    api = PlanetApi(self.config["PLANET_API_KEY"])
     res = api.getAllAssets(self.assets_link)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -127,7 +130,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(["udm"])
 
   def test_getActivationStatus(self):
-    api = PlanetApi('3d42933f4c284a3b8dd2c5200e97da00')
+    api = PlanetApi(self.config["PLANET_API_KEY"])
     res = api.getAllAssets(self.analytic_asset_link)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)

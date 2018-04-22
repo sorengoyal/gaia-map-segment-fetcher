@@ -1,28 +1,27 @@
+import json
+from .api import PlanetApi
 
-
-def getImage(self, fil):
-    items = self.server.postSearchRequest(fil)
-    if (len(items) == 0):
-        raise Exception("No Items found for filter:\n" + json.dumps(fil, indent=2))
-    item = {}
-    for i in items:
-        if (len(i['_permissions']) != 0):
-            item = i
-    asset = self.server.getAllAssets(item)['analytic']
-    response = self.server.postActivationRequest(asset)
-    if (not (response.status_code == 204 or response.status_code == 202)):
-        raise Exception(
-            "Response Code: " + str(response.status_code) + "Could not activate asset:\n" + json.dumps(asset, indent=2))
-    status = 'activating'
-    while (status == 'activating'):
-        status = self.server.getActivationStatus(asset)
-    self.logger.debug("getImages Activated Asset")
-    asset = self.server.getAllAssets(item)['analytic']
-    coordinates = fil['config.json'][0]['config.json']['coordinates']
-    image = self.server.downloadImage(asset, aoi=coordinates)
-    self.logger.info("getImage Downloaded image")
-    self.logger.debug("getImage shape of image:" + str(image.shape))
-    return image
+def getMapSegmentImage(self, search_request):
+  api = PlanetApi()
+  items = self.server.postSearchRequest(fil)
+  if (len(items) == 0):
+      raise Exception("No Items found for filter:\nResponse:\n" + json.dumps(fil, indent=2))
+  downlaodable_items = [item for item in items if len(i['_permissions']) != 0]
+  asset = self.server.getAllAssets(item)['analytic']
+  response = self.server.postActivationRequest(asset)
+  if (not (response.status_code == 204 or response.status_code == 202)):
+      raise Exception(
+          "Response Code: " + str(response.status_code) + "Could not activate asset:\n" + json.dumps(asset, indent=2))
+  status = 'activating'
+  while (status == 'activating'):
+      status = self.server.getActivationStatus(asset)
+  self.logger.debug("getImages Activated Asset")
+  asset = self.server.getAllAssets(item)['analytic']
+  coordinates = fil['config.json'][0]['config.json']['coordinates']
+  image = self.server.downloadImage(asset, aoi=coordinates)
+  self.logger.info("getImage Downloaded image")
+  self.logger.debug("getImage shape of image:" + str(image.shape))
+  return image
 
 def getAllTiffs(filters):
     with open('subarea.json', 'w') as file:
