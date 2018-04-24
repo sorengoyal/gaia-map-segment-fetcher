@@ -1,27 +1,45 @@
 import json
+import time
 from .api import PlanetApi
 
-def getMapSegmentImage(self, search_request):
+
+def getMapSegment(search_request):
   api = PlanetApi()
-  items = self.server.postSearchRequest(fil)
-  if (len(items) == 0):
-      raise Exception("No Items found for filter:\nResponse:\n" + json.dumps(fil, indent=2))
-  downlaodable_items = [item for item in items if len(i['_permissions']) != 0]
-  asset = self.server.getAllAssets(item)['analytic']
-  response = self.server.postActivationRequest(asset)
-  if (not (response.status_code == 204 or response.status_code == 202)):
-      raise Exception(
-          "Response Code: " + str(response.status_code) + "Could not activate asset:\n" + json.dumps(asset, indent=2))
-  status = 'activating'
-  while (status == 'activating'):
-      status = self.server.getActivationStatus(asset)
-  self.logger.debug("getImages Activated Asset")
-  asset = self.server.getAllAssets(item)['analytic']
-  coordinates = fil['config.json'][0]['config.json']['coordinates']
-  image = self.server.downloadImage(asset, aoi=coordinates)
-  self.logger.info("getImage Downloaded image")
-  self.logger.debug("getImage shape of image:" + str(image.shape))
+  features = api.postSearchRequest(search_request).json()["requests"]
+  if (len(features) == 0):
+      raise Exception("No Items found for filter:\nResponse:\n" + json.dumps(features, indent=2))
+  downloadable_features = [feature for feature in features if len(feature['_permissions']) != 0]
+  feature = downloadable_features[-1]
+  assets = api.getAllAssetsInfo(feature["_links"]["assets"])
+  analytic_asset_activation_link = assets["analytic"]["_links"]["activate"]
+  waitUntilActivation(api, analytic_asset_activation_link)
+  image = api.downloadAsset(asset, aoi=coordinates)
   return image
+
+
+def waitUntilActivation(api, asset_link):
+  response = api.postActivationRequest(asset_link)
+  if (not (response.status_code == 204 or response.status_code == 202)):
+      raise Exception("Could not activate asset.\nResponse:\n" + json.dumps(response.json(), indent=2))
+  #Status Codes
+  #204 - Activation Request Posted
+  #202 - Activation Successful
+  status = response.status_code
+  begin_time = time.time()
+  while status == 204:
+    time.sleep(1)
+    response = api.postActivationRequest(asset_link)
+    status = response.status_code
+    if time.time() - begin_time > 20:
+      raise Exception("Activation of asset taking too long.\n Last Response:\n" + json.dumps(response.json(), indent=2))
+  if status != 202:
+    raise Exception("Error in Activating Request\n Response:\n" + json.dumps(response.json(), indent=2))
+
+def putImageIntoS3():
+  pass
+
+def makeEntryIntoRds():
+  pass
 
 def getAllTiffs(filters):
     with open('subarea.json', 'w') as file:
