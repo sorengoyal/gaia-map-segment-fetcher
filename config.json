@@ -1,3 +1,9 @@
 {
-  "PLANET_API_KEY": "3d42933f4c284a3b8dd2c5200e97da00"
+  "Planet-Api-Key": "3d42933f4c284a3b8dd2c5200e97da00",
+  "Resources": {
+    "dev": {
+      "s3-bucket": "gaia-dev",
+      "s3-folder": "gaia-map-segment-fetcher"
+    }
+  }
 }
