@@ -120,7 +120,7 @@ class TestApi(unittest.TestCase):
   analytic_asset_link = 'https://api.planet.com/data/v1/assets/eyJpIjogIjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCAiYyI6ICJSRU9ydGhvVGlsZSIsICJ0IjogImFuYWx5dGljIiwgImN0IjogIml0ZW0tdHlwZSJ9'
 
   def test_postStatsRequest(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     res = api.postStatsRequests(self.search_request)
     #Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -132,7 +132,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(r['buckets'][0]['start_time'])
 
   def test_postSearchRequest(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     res = api.postSearchRequest(self.search_request)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -182,7 +182,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(r["features"][0]["type"])
 
   def test_getAllAssetsInfo(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     res = api.getAllAssetsInfo(self.assets_link)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -207,13 +207,13 @@ class TestApi(unittest.TestCase):
     self.assertTrue(["udm"])
 
   def test_postActivationRequest(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     res = api.postActivationRequest(self.assets["analytic"]["_links"]["activate"])
     # Response was returned successfully
     self.assertTrue(res.status_code == 202 or res.status_code == 204)
 
   def test_getActivationStatus(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     res = api.getAllAssetsInfo(self.analytic_asset_link)
     # Response was returned successfully
     self.assertEqual(res.status_code, 200)
@@ -234,7 +234,7 @@ class TestApi(unittest.TestCase):
     self.assertTrue(r["status"] in ('active',))
 
   def test_downloadAsset(self):
-    api = PlanetApi(self.config["PLANET_API_KEY"])
+    api = PlanetApi(self.config["Planet-Api-Key"])
     asset_info = api.getAllAssetsInfo(self.assets_link)
     asset_info_json = asset_info.json()
     res = api.downloadAsset(asset_info_json["visual_xml"]["location"])
