@@ -55,7 +55,7 @@ def writeToS3(data, bucketname, key):
     except Exception as e:
         raise e
 
-def makeEntryIntoRds():
+def makeEntryIntoRds(data):
   pass
 
 def getAllTiffs(filters):
@@ -67,7 +67,7 @@ def getAllTiffs(filters):
                 "properties": {},
                 "geometry": {
                     "type": "Polygon",
-                    "coordinates": filters[0]['config.json'][0]['config.json']['coordinates']
+                    "coordinates": filters[0]['config.py'][0]['config.py']['coordinates']
                 }
             }]
         }

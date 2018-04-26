@@ -1,10 +1,11 @@
 import json
 import time
 import unittest
+from .. import config
 from planet.tasks import *
 
 class TestTasks(unittest.TestCase):
-    config = json.load(open('config.json'))
+    config = json.load(open('config.py'))
 
     def test_writeToS3(self):
         data = "Test data written by a dev"
