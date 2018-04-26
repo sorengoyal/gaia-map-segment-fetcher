@@ -7,7 +7,7 @@ Resources = {
         },
         "rds": {
             "host": "gaia-db.c7qv9zc9szdp.us-east-2.rds.amazonaws.com",
-            "port": "3306",
+            "port": 3306,
             "db": "testdb",
             "user": "sorengoyal",
             "password": "FU4$dptrm"

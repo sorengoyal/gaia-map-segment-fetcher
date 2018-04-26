@@ -1,9 +1,8 @@
 import json
 import time
-
+import pymysql
 import boto3
 import botocore
-
 from .api import PlanetApi
 
 
@@ -55,8 +54,11 @@ def writeToS3(data, bucketname, key):
     except Exception as e:
         raise e
 
-def makeEntryIntoRds(data):
-  pass
+def makeEntryIntoRds(data, host, port, user, password, db):
+    conn = pymysql.connect(host, user=user, passwd=password, port=port, connect_timeout=5)
+    with conn.cursor() as cur:
+        cur.execute('Insert into %s.RawTileData (JSON) Values (\'%s\')' % (db,json.dumps(data)))
+        conn.commit()
 
 def getAllTiffs(filters):
     with open('subarea.json', 'w') as file:
