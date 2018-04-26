@@ -12,5 +12,18 @@ Resources = {
             "user": "sorengoyal",
             "password": "FU4$dptrm"
         }
-    }
+    },
+    "prod": {
+            "s3": {
+                "bucket": "gaia-map-segments",
+                "folder": "raw",
+            },
+            "rds": {
+                "host": "gaia-db.c7qv9zc9szdp.us-east-2.rds.amazonaws.com",
+                "port": 3306,
+                "db": "gaiadb",
+                "user": "sorengoyal",
+                "password": "FU4$dptrm"
+            }
+        }
 }
