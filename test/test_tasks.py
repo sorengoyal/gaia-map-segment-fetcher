@@ -70,6 +70,41 @@ class TestTasks(unittest.TestCase):
         },
         "type": "segment"
     }
+    search_request = {
+        "interval": "day",
+        "item_types": ['REOrthoTile'],  # ["PSOrthoTile"],
+        "filter": {
+            "type": "AndFilter",
+            "config": [
+                {
+                    "type": "GeometryFilter",
+                    "field_name": "geometry",
+                    "config": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [-122.46171355247498, 37.80017965728568],
+                                [-122.45639204978943, 37.80017965728568],
+                                [-122.45639204978943, 37.803723135087566],
+                                [-122.46171355247498, 37.803723135087566],
+                                [-122.46171355247498, 37.80017965728568]
+
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "type": "AndFilter",
+                    "config": [
+                        {
+                            "type": "PermissionFilter",
+                            "config": ["assets:download"]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 
     def test_writeToS3(self):
         data = "Test data written by a dev"
@@ -86,4 +121,9 @@ class TestTasks(unittest.TestCase):
         password = config.Resources["dev"]["rds"]["password"]
         db = config.Resources["dev"]["rds"]["db"]
         makeEntryIntoRds(self.data, host, port, user, password, db)
+
+    def test_getMapSegment(self):
+        image = getMapSegment(self.search_request, "visual_xml", config.Planet_Api_Key)
+        with open("image.jpg", "w") as f:
+            f.write(image)
 

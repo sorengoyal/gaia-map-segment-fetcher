@@ -14,7 +14,7 @@ folder = config.Resources["dev"]["s3"]["folder"]
 def lambda_handler(event, context):
     filter = event["filter"]
     print("Received event:\n" + json.dumps(event, indent=2))
-    segment_info, segment_data = getMapSegment(filter, Planet_Api_Key)
+    segment_info, segment_data = getMapSegment(filter, "analytic", Planet_Api_Key)
     key = '%s/%s.tif' % (folder, segment_info["id"])
     writeToS3(segment_data, bucketname, key)
     makeEntryIntoRds(segment_data, host, port, user, password, db)
