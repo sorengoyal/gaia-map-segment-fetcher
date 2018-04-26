@@ -1,0 +1,17 @@
+{
+  "analytic": {
+    "_links": {
+      "_self": "https:\/\/api.planet.com\/data\/v1\/assets\/eyJpIjogIjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCAiYyI6ICJSRU9ydGhvVGlsZSIsICJ0IjogImFuYWx5dGljIiwgImN0IjogIml0ZW0tdHlwZSJ9",
+      "activate": "https:\/\/api.planet.com\/data\/v1\/assets\/eyJpIjogIjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCAiYyI6ICJSRU9ydGhvVGlsZSIsICJ0IjogImFuYWx5dGljIiwgImN0IjogIml0ZW0tdHlwZSJ9\/activate",
+      "type": "https:\/\/api.planet.com\/data\/v1\/asset-types\/analytic"
+    },
+    "_permissions": [
+      "download"
+    ],
+    "expires_at": "2018-04-25T21:03:33.511739",
+    "location": "https:\/\/api.planet.com\/data\/v1\/download?token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ3a0trY0psVkFWa3hRUlZaZzA4YnFRVXBhdlpCcVpmYzJIMjNsNVduSVVZRDI3Mkc2WWZYb0lFdXdNb0hrclRSVDdCcjJKZ3dQajlFeXJ6a3g1VmpPQT09IiwiaXRlbV90eXBlX2lkIjoiUkVPcnRob1RpbGUiLCJ0b2tlbl90eXBlIjoidHlwZWQtaXRlbSIsImV4cCI6MTUyNDY5MDIxMywiaXRlbV9pZCI6IjIwMTgwNDAyXzE5MDcxNl8xMDU2NTE2X1JhcGlkRXllLTQiLCJhc3NldF90eXBlIjoiYW5hbHl0aWMifQ.Od19cxhRbIPe5AFuIJKsDNHlcYISbSQvEPTIr_J7JfhM-UwswZSelOKNFO_hUzAuJA6d8KGFaRha6gNDbe_QVQ",
+    "md5_digest": "f4ef058a97b8dbcf373d1ece39bb01c2",
+    "status": "active",
+    "type": "analytic"
+  }
+}
