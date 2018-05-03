@@ -127,3 +127,6 @@ class TestTasks(unittest.TestCase):
         with open("image.jpg", "w") as f:
             f.write(image)
 
+    def suite(self):
+        return unittest.makeSuite(TestTasks, 'test')
+
