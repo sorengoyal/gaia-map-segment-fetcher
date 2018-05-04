@@ -1,5 +1,3 @@
-import json
-import time
 import unittest
 import config
 from planet.tasks import *
@@ -114,6 +112,7 @@ class TestTasks(unittest.TestCase):
         key = config.Resources["dev"]["s3"]["folder"] + filename
         writeToS3(data, bucketname, key)
 
+
     def test_makeEntryIntoRds(self):
         host = config.Resources["dev"]["rds"]["host"]
         port = config.Resources["dev"]["rds"]["port"]
@@ -123,9 +122,9 @@ class TestTasks(unittest.TestCase):
         makeEntryIntoRds(self.data, host, port, user, password, db)
 
     def test_getMapSegment(self):
-        image = getMapSegment(self.search_request, "visual_xml", config.Planet_Api_Key)
-        with open("image.jpg", "w") as f:
-            f.write(image)
+        segment_info, segment_data = getMapSegment(self.search_request, "visual", config.Planet_Api_Key)
+        with open("image.tif", "wb") as f:
+            f.write(segment_data)
 
     def suite(self):
         return unittest.makeSuite(TestTasks, 'test')

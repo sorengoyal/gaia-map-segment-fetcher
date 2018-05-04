@@ -18,7 +18,7 @@ def getMapSegment(search_request, asset_type, api_key):
     waitUntilActivation(api, asset_activation_link)
     assets_info = api.getAllAssetsInfo(feature["_links"]["assets"]).json() #Update the assets link
     image = api.downloadAsset(assets_info[asset_type]["location"])
-    return image
+    return {"feature": feature, "asset_type": asset_type}, image.content
 
 
 def waitUntilActivation(api, asset_activation_link):
